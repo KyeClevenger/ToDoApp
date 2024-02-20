@@ -12,10 +12,36 @@
 
 <body class="justify-center items-center flex text-center">
     <div class="container h-screen p-12">
-        <div class="taskcreationbox">
-            <h2>hi</h2>
-        </div>
-        <div class="tasksbox">
+        <form onsubmit="return false;">
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Title">
+    
+            <label for="description">Description:</label>
+            <textarea id="description" placeholder="Description"></textarea>
+    
+            <label for="dueDate">Due Date:</label>
+            <input type="datetime-local" id="dueDate">
+    
+            <button onclick="buttonPress()">Add To List</button>
+        </form>
+    
+        <ul id="toDo" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+    
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+    
+                <label for="editTitle">Title:</label>
+                <input type="text" id="editTitle" placeholder="Title">
+    
+                <label for="editDescription">Description:</label>
+                <textarea id="editDescription" placeholder="Description"></textarea>
+    
+                <label for="editDueDate">Due Date:</label>
+                <input type="datetime-local" id="editDueDate">
+    
+                <button id="saveEditButton" onclick="saveEdit()">Save</button>
+            </div>
         </div>
     </div>
 </body>
