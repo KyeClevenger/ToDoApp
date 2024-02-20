@@ -4,42 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <script defer src="./script.js"></script>
     <title>To Do App</title>
 </head>
 
 <body class="justify-center items-center flex text-center">
-    <div class="container h-screen p-12">
-        <form onsubmit="return false;">
-            <label for="title">Title:</label>
-            <input type="text" id="title" placeholder="Title">
-    
-            <label for="description">Description:</label>
-            <textarea id="description" placeholder="Description"></textarea>
-    
-            <label for="dueDate">Due Date:</label>
-            <input type="datetime-local" id="dueDate">
-    
-            <button onclick="buttonPress()">Add To List</button>
+    <div class="container h-screen p-12 ">
+        <nav class="navbar bg-black bg-gradient fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="#">ToDo APP</a>
+                <button class="navbar-toggler white" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header bg-black bg-gradient">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body bg-black bg-gradient">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="d-flex mt-3" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <form onsubmit="return false;" class="flex flex-col">
+            <label class="p-3" for="title">Title:</label>
+            <input class="text-center rounded-xl" type="text" id="title" placeholder="Title">
+
+            <label class="p-3" for="description">Description:</label>
+            <textarea class="text-center rounded-xl" id="description" placeholder="Description"></textarea>
+
+            <label class="p-3" for="dueDate">Due Date:</label>
+            <input class="text-center rounded-xl" type="datetime-local" id="dueDate">
+
         </form>
-    
-        <ul id="toDo" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
-    
+        <button class="p-3" onclick="buttonPress()">Add To List</button>
+
+        <ul class="p-12" id="toDo" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
+
         <div id="editModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeEditModal()">&times;</span>
-    
+
                 <label for="editTitle">Title:</label>
                 <input type="text" id="editTitle" placeholder="Title">
-    
+
                 <label for="editDescription">Description:</label>
                 <textarea id="editDescription" placeholder="Description"></textarea>
-    
+
                 <label for="editDueDate">Due Date:</label>
                 <input type="datetime-local" id="editDueDate">
-    
+
                 <button id="saveEditButton" onclick="saveEdit()">Save</button>
             </div>
         </div>
