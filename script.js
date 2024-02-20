@@ -66,16 +66,12 @@ function displayArray() {
             const titleInput = document.getElementById("editTitle");
             const descriptionInput = document.getElementById("editDescription");
             const dueDateInput = document.getElementById("editDueDate");
-        
             const currentItem = array1[index];
-        
             titleInput.value = currentItem.title;
             descriptionInput.value = currentItem.description;
             dueDateInput.value = currentItem.dueDate;
-        
             const saveEditButton = document.getElementById("saveEditButton");
             saveEditButton.onclick = () => saveEdit(index);
-        
             editModal.style.display = "block";
         }
         

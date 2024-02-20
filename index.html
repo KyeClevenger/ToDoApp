@@ -64,31 +64,22 @@
         <form onsubmit="return false;" class="flex flex-col">
             <label class="p-3" for="title">Title:</label>
             <input class="text-center rounded-xl" type="text" id="title" placeholder="Title">
-
             <label class="p-3" for="description">Description:</label>
             <textarea class="text-center rounded-xl" id="description" placeholder="Description"></textarea>
-
             <label class="p-3" for="dueDate">Due Date:</label>
             <input class="text-center rounded-xl" type="datetime-local" id="dueDate">
-
         </form>
         <button class="p-3" onclick="buttonPress()">Add To List</button>
-
         <ul class="p-12" id="toDo" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
-
         <div id="editModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeEditModal()">&times;</span>
-
                 <label for="editTitle">Title:</label>
                 <input type="text" id="editTitle" placeholder="Title">
-
                 <label for="editDescription">Description:</label>
                 <textarea id="editDescription" placeholder="Description"></textarea>
-
                 <label for="editDueDate">Due Date:</label>
                 <input type="datetime-local" id="editDueDate">
-
                 <button id="saveEditButton" onclick="saveEdit()">Save</button>
             </div>
         </div>
