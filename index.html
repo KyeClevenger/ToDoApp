@@ -19,14 +19,19 @@
 
 <body>
     <div class="justify-center items-center flex text-center flex-col">
-        <div class="toDoAppLogo">
+        <div class="toDoAppLogo flex items-center">
             <h1>To Do App</h1>
+            <svg class="m-2" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                <path
+                    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+            </svg>
         </div>
         <div class="wrapper">
             <header>
-                <p class="current-date"></p>
                 <div class="icons">
                     <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                    <p class="current-date"></p>
                     <span id="next" class="material-symbols-rounded">chevron_right</span>
                 </div>
                 <button id="jumpToToday">Jump to Today</button>
@@ -44,40 +49,15 @@
                 <ul class="days"></ul>
             </div>
         </div>
-
     </div>
-    <!-- <div class="justify-center items-center flex text-center flex-col w-screen h-screen">
-        <form onsubmit="return false;" class="flex flex-col">
-            <label class="p-3" for="title">Title:</label>
-            <input class="text-center rounded-xl" type="text" id="title" placeholder="Title">
-            <label class="p-3" for="description">Description:</label>
-            <textarea class="text-center rounded-xl" id="description" placeholder="Description"></textarea>
-            <label class="p-3" for="dueDate">Due Date:</label>
-            <input class="text-center rounded-xl" type="datetime-local" id="dueDate">
-            <button class="p-3" onclick="buttonPress()">Add To List</button>
-        </form>
+    <div id="myModal" class="modal">
+        <div id="modalContent" class="modal-content"></div>
         <ul class="p-12" id="toDo" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
-        <div id="editModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeEditModal()">&times;</span>
-                <label for="editTitle">Title:</label>
-                <input type="text" id="editTitle" placeholder="Title">
-                <label for="editDescription">Description:</label>
-                <textarea id="editDescription" placeholder="Description"></textarea>
-                <label for="editDueDate ">Due Date:</label>
-                <input type="datetime-local" id="editDueDate">
-                <button id="saveEditButton" onclick="saveEdit()">Save</button>
-            </div>
-        </div> -->
+    </div>
     <div class="footer">
         <div class="addTask justify-center items-center flex text-center w-20 h-20 shadow-lg shadow-indigo-500/40">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-lg"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-            </svg>
+            <button class="addTodoButton text-7xl" onclick="openToDoForm(new Date())">+</button>
         </div>
-    </div>
     </div>
 </body>
 

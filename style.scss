@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
 }
 
 .wrapper {
@@ -11,11 +11,11 @@
     width: 400px;
     background: #fff;
     border-radius: 10px;
+    border: 3px solid black;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    margin-bottom: 200px;
-  }
+}
 
-  .wrapper header {
+.wrapper header {
     height: 75px;
     display: flex;
     align-items: center;
@@ -23,88 +23,98 @@
     padding: 15px;
 }
 
-  
 header .icons {
-  display: flex;
-  padding: 10px;
+    display: flex;
+    padding: 10px;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
 }
 header .icons span {
-  height: 38px;
-  width: 38px;
-  margin: 0 1px;
-  cursor: pointer;
-  color: #878787;
-  text-align: center;
-  line-height: 38px;
-  font-size: 1.9rem;
-  user-select: none;
-  border-radius: 50%;
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;
+    border-radius: 50%;
 }
 .icons span:last-child {
-  margin-right: -10px;
+    margin-right: -10px;
 }
 header .icons span:hover {
-  background: #f2f2f2;
+    background: #f2f2f2;
 }
 header .current-date {
     font-size: 1.125rem;
     font-weight: 500;
     flex-grow: 1; 
-    text-align: left; 
+    text-align: center; 
 }
 .calendar {
     height: 400px; 
     padding: 15px;
-  }
-  
+    }
+
 .calendar ul {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
 }
 .calendar .days {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 .calendar li {
-  color: #333;
-  width: calc(100% / 7);
-  font-size: 1.07rem;
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
 }
 .calendar .weeks li {
-  font-weight: 500;
-  cursor: default;
+    font-weight: 500;
+    cursor: default;
 }
 .calendar .days li {
-  z-index: 1;
-  cursor: pointer;
-  position: relative;
-  margin-top: 30px;
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 30px;
 }
 .days li.inactive {
-  color: #aaa;
+    color: #aaa;
 }
 .days li.active {
-  color: #fff;
-}
-.days li::before {
-  position: absolute;
-  content: "";
-  left: 50%;
-  top: 50%;
-  height: 40px;
-  width: 40px;
-  z-index: -1;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-.days li.active::before {
-  background: #ff9736;
-}
-.days li:not(.active):hover::before {
-  background: #f2f2f2;
+    color: #fff;
 }
 
+.days li:not(.active)::after {
+    color: white;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+.days li.active::before {
+    background: #ff9736;
+}
+.days li:not(.active):hover::before {
+    background: #f2f2f2;
+}
+
+#jumpToToday{
+    color: #ff9736;
+}
 
 .footer {
     position: fixed;
@@ -114,90 +124,54 @@ header .current-date {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(146, 146, 146, 0.427);
-    color: white;
+    background-color: rgb(173, 173, 173);
+    border-top: 3px solid black;
+    color: rgb(255, 255, 255);
     text-align: center;
-  }
+    z-index: 2;
+}
 
-  .addTask {
+.addTask {
     background-color: rgb(59, 147, 255);
-    border: 3px solid rgb(74, 167, 255);
+    border: 3px solid rgb(0, 0, 0);
+    cursor: pointer;
+    box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.12);
     position: relative;
-    bottom: 30px;
+    bottom: 50%;
     border-radius: 50%;
-  }
-
-
-// .completed {
-//     text-decoration: line-through;
-// }
-
-// /* Add this CSS for the modal */
-// .modal {
-//     display: none;
-//     position: fixed;
-//     z-index: 1;
-//     left: 0;
-//     top: 0;
-//     width: 100%;
-//     height: 100%;
-//     overflow: auto;
-//     background-color: rgba(0,0,0,0.4);
-// }
-
-// .modal-content {
-//     background-color: #414141;
-//     margin: 15% auto;
-//     padding: 20px;
-//     border: 5px dashed #000000;
-//     width: 80%;
-// }
-
-// .close {
-//     color: #aaa;
-//     float: right;
-//     font-size: 28px;
-//     font-weight: bold;
-// }
-
-// .close:hover,
-// .close:focus {
-//     color: black;
-//     text-decoration: none;
-//     cursor: pointer;
-// }
-
-// .white{
-//     background-color: white;
-// }
-
-// ul{
-// display: flex;
-// align-items: center;
-// justify-content: center;
-// flex-direction: column;
-// }
-
-// li{
-//     background-color: red;
-//     padding: 20px;
-//     margin: 20px;
-//     width: 100%;
-//     border-radius: 20px;
-//     border: 2px solid white;
-//     box-shadow: 6px 6px 20px black;
-// }
-
-// form{
-//     background-color: #414141;
-//     padding: 20px;
-//     border-radius: 20px;
-//     box-shadow: 6px 6px 20px black;
-// }
-
+}
 
 
 .toDoAppLogo{
     font-size: 2rem;
     padding: 20px;
+}
+
+.modal {
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    height: 80%;
+    border-radius: 10px;
+    border: 3px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 65%;
+    z-index: -2;
+}
+
+.close {
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
