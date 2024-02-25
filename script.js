@@ -11,36 +11,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const months = ["January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"];
 
-        const renderCalendar = () => {
-            const firstDayofMonth = new Date(currYear, currMonth, 1).getDay();
-            const lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
-            const lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay();
-            const lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
-        
-            let liTag = "";
-        
-            for (let i = 0; i < 6; i++) {
-                for (let j = 0; j < 7; j++) {
-                    const dayNumber = i * 7 + j + 1 - firstDayofMonth;
-        
-                    if (i === 0 && j < firstDayofMonth) {
-                        // Display inactive days before the first day of the month
-                        liTag += `<li class="inactive">${lastDateofLastMonth - firstDayofMonth + j + 1}</li>`;
-                    } else if (dayNumber <= lastDateofMonth) {
-                        // Display active days within the month
-                        const isToday = dayNumber === date.getDate() && currMonth === date.getMonth() &&
-                            currYear === date.getFullYear() ? "active" : "";
-                        liTag += `<li class="${isToday}" onclick="displayModal(new Date(${currYear}, ${currMonth}, ${dayNumber}))">${dayNumber}</li>`;
-                    } else {
-                        // Display inactive days after the last day of the month
-                        liTag += `<li class="inactive">${dayNumber - lastDateofMonth}</li>`;
-                    }
-                }
-            }
-        
-            currentDate.innerText = `${months[currMonth]} ${currYear}`;
-            daysTag.innerHTML = liTag;
-        };
+    const renderCalendar = () => {
+        let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
+            lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+            lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
+            lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+        let liTag = "";
+
+        for (let i = firstDayofMonth; i > 0; i--) {
+            liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+        }
+
+        for (let i = 1; i <= lastDateofMonth; i++) {
+            let isToday = i === date.getDate() && currMonth === date.getMonth() &&
+                currYear === date.getFullYear() ? "active" : "";
+            liTag += `<li class="${isToday}" onclick="displayModal(new Date(${currYear}, ${currMonth}, ${i}))">${i}</li>`;
+        }
+
+        for (let i = lastDayofMonth; i < 6; i++) {
+            liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
+        }
+
+        currentDate.innerText = `${months[currMonth]} ${currYear}`;
+        daysTag.innerHTML = liTag;
+    };
 
     const updateCalendar = () => {
         currentDate.textContent = new Date().toLocaleDateString();
@@ -76,9 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function displayTasksAndModal(selectedDate, isModalDisplay = true) {
     const modal = document.getElementById("myModal");
     const modalContent = document.getElementById("modalContent");
-
-    // Clear modalContent before adding new content
-    modalContent.innerHTML = '';
+    const footer = document.querySelector(".footer");
 
     const tasksForDay = array1.filter(item => {
         const itemDate = new Date(item.dueDate);
@@ -89,7 +81,7 @@ function displayTasksAndModal(selectedDate, isModalDisplay = true) {
         );
     });
 
-    modalContent.innerHTML += `<p>Clicked on date: ${selectedDate.toLocaleDateString()}</p>`;
+    modalContent.innerHTML = `<p>Clicked on date: ${selectedDate.toLocaleDateString()}</p>`;
 
     if (tasksForDay.length > 0) {
         tasksForDay.forEach(task => {
@@ -103,7 +95,19 @@ function displayTasksAndModal(selectedDate, isModalDisplay = true) {
     todoForm.classList.add("flex", "flex-col");
     todoForm.onsubmit = function () { return false; };
 
+    todoForm.innerHTML = `
+        <label class="p-3" for="title">Title:</label>
+        <input class="text-center rounded-xl" type="text" id="title" placeholder="Title">
+        <label class="p-3" for="description">Description:</label>
+        <textarea class="text-center rounded-xl" id="description" placeholder="Description"></textarea>
+        <label class="p-3" for="dueDate">Due Date:</label>
+        <input class="text-center rounded-xl" type="datetime-local" id="dueDate">
+        <button class="p-3" onclick="buttonPress()">Add To List</button>
+    `;
+
     modalContent.appendChild(todoForm);
+
+    const footerRect = footer.getBoundingClientRect();
     modal.style.display = isModalDisplay ? "block" : "none";
 
     window.onclick = function (event) {
@@ -120,7 +124,6 @@ function displayTasksForDay(selectedDate) {
 function displayModal(selectedDate) {
     displayTasksAndModal(selectedDate, true);
 }
-
 document.addEventListener('DOMContentLoaded', function () {
     const footerYear = document.getElementById("footerYear");
     const currentYear = new Date().getFullYear();
@@ -128,102 +131,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function openToDoForm(selectedDate) {
-    const modal = document.getElementById("myModal");
-    const modalContent = document.getElementById("modalContent");
-    modalContent.innerHTML = '';
-
-    // Create form element
-    const todoForm = document.createElement("form");
-    todoForm.classList.add("flex", "flex-col");
-    todoForm.onsubmit = function () { return false; };
-
-    // Create date input element
-    const dateInput = document.createElement("input");
-    dateInput.classList.add("text-center", "rounded-xl");
-    dateInput.type = "datetime-local";  // Error likely here
-    dateInput.id = "dueDate";
+    const toDoForm = document.getElementById("toDoForm");
+    const dateInput = document.getElementById("dueDate");
     dateInput.value = selectedDate.toISOString().slice(0, 16);
-    dateInput.required = true;
-
-    // Append elements to form
-    const clickedDateParagraph = document.createElement("p");
-    clickedDateParagraph.textContent = `Clicked on date: ${selectedDate.toLocaleDateString()}`;
-    modalContent.appendChild(clickedDateParagraph);
-
-    const descriptionParagraph = document.createElement("p");
-    descriptionParagraph.textContent = "If you would like to add a task for this day, use the form below:";
-    todoForm.appendChild(descriptionParagraph);
-
-    const titleLabel = document.createElement("label");
-    titleLabel.classList.add("p-3");
-    titleLabel.textContent = "Title:";
-    todoForm.appendChild(titleLabel);
-
-    const titleInput = document.createElement("input");
-    titleInput.classList.add("text-center", "rounded-xl", "title-input");
-    titleInput.type = "text";
-    todoForm.appendChild(titleInput);
-
-    const descriptionLabel = document.createElement("label");
-    descriptionLabel.classList.add("p-3");
-    descriptionLabel.textContent = "Description:";
-    todoForm.appendChild(descriptionLabel);
-
-    const descriptionInput = document.createElement("textarea");
-    descriptionInput.classList.add("text-center", "rounded-xl", "description-input");
-    todoForm.appendChild(descriptionInput);
-
-    const dueDateLabel = document.createElement("label");
-    dueDateLabel.classList.add("p-3");
-    dueDateLabel.textContent = "Due Date:";
-    todoForm.appendChild(dueDateLabel);
-
-    todoForm.appendChild(dateInput);
-
-   const addButton = document.createElement("button");
-    addButton.classList.add("p-3");
-    addButton.textContent = "Add To List";
-    addButton.addEventListener("click", function () {
-        const title = document.getElementById("title").value.trim();
-        const description = document.getElementById("description").value.trim();
-        const dueDate = document.getElementById("dueDate").value;
-
-        addTask(title, description, dueDate); // Pass the due date to the addTask function
-    });
-    todoForm.appendChild(addButton);
-
-    // Clear modalContent and append the form
-    modalContent.innerHTML = '';
-    modalContent.appendChild(todoForm);
-
-    modal.style.display = "block";
+    toDoForm.style.display = "block";
 }
 
 
 
-
-
-function addTask(title, description, dueDate) {
-    if (title !== "") {
-        const newItem = {
-            title,
-            description,
-            dueDate,
-            timestamp: new Date().toLocaleString(),
-            completed: false,
-        };
-        array1.push(newItem);
-        displayArray();
-        saveDataToLocal();
-        clearInputFields();
-        closeToDoForm();
-    }
-}
-
-function closeToDoForm() {
-    const modal = document.getElementById("myModal");
-    modal.style.display = "none";
-}
 
 
 
@@ -237,7 +152,7 @@ let array1 = [];
 function buttonPress() {
     const title = document.getElementById("title").value.trim();
     const description = document.getElementById("description").value.trim();
-    const dueDate = document.getElementById("dueDate").value; 
+    const dueDate = document.getElementById("dueDate").value;
 
     if (title !== "") {
         const newItem = {
@@ -287,7 +202,7 @@ function displayArray() {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = item.completed;
-        checkbox.addEventListener("change", () => toggleCompleted(index, li)); 
+        checkbox.addEventListener("change", () => toggleCompleted(index, li));
         li.appendChild(checkbox);
 
         const editButton = document.createElement("button");
@@ -295,47 +210,43 @@ function displayArray() {
         editButton.onclick = () => editItem(index);
         li.appendChild(editButton);
 
-        function editItem(index) {
-            const editModal = document.getElementById("editModal");
-            const titleInput = document.getElementById("editTitle");
-            const descriptionInput = document.getElementById("editDescription");
-            const dueDateInput = document.getElementById("editDueDate");
-            const currentItem = array1[index];
-            titleInput.value = currentItem.title;
-            descriptionInput.value = currentItem.description;
-            dueDateInput.value = currentItem.dueDate;
-            const saveEditButton = document.getElementById("saveEditButton");
-            saveEditButton.onclick = () => saveEdit(index);
-            editModal.style.display = "block";
-        }
-        
-        function saveEdit(index) {
-            const titleInput = document.getElementById("editTitle").value.trim();
-            const descriptionInput = document.getElementById("editDescription").value.trim();
-            const dueDateInput = document.getElementById("editDueDate").value;
-        
-            if (titleInput !== "") {
-                array1[index].title = titleInput;
-                array1[index].description = descriptionInput;
-                array1[index].dueDate = dueDateInput;
-                array1[index].timestamp = new Date().toLocaleString();
-        
-                displayArray();
-                saveDataToLocal();
-        
-                const editModal = document.getElementById("editModal");
-                editModal.style.display = "none";
-            }
-        }
-        
-        if (item.completed) {
-            li.classList.add("completed"); 
-        }
-
         ul.appendChild(li);
     });
-    console.log("Current Array:", array1);
 }
+
+function editItem(index) {
+    const editModal = document.getElementById("editModal");
+    const titleInput = document.getElementById("editTitle");
+    const descriptionInput = document.getElementById("editDescription");
+    const dueDateInput = document.getElementById("editDueDate");
+    const currentItem = array1[index];
+    titleInput.value = currentItem.title;
+    descriptionInput.value = currentItem.description;
+    dueDateInput.value = currentItem.dueDate;
+    const saveEditButton = document.getElementById("saveEditButton");
+    saveEditButton.onclick = () => saveEdit(index);
+    editModal.style.display = "block";
+}
+
+function saveEdit(index) {
+    const titleInput = document.getElementById("editTitle").value.trim();
+    const descriptionInput = document.getElementById("editDescription").value.trim();
+    const dueDateInput = document.getElementById("editDueDate").value;
+
+    if (titleInput !== "") {
+        array1[index].title = titleInput;
+        array1[index].description = descriptionInput;
+        array1[index].dueDate = dueDateInput;
+        array1[index].timestamp = new Date().toLocaleString();
+
+        displayArray();
+        saveDataToLocal();
+
+        const editModal = document.getElementById("editModal");
+        editModal.style.display = "none";
+    }
+}
+
 function closeEditModal() {
     const editModal = document.getElementById("editModal");
     editModal.style.display = "none";
@@ -345,9 +256,9 @@ function toggleCompleted(index, li) {
     array1[index].completed = !array1[index].completed;
 
     if (array1[index].completed) {
-        li.classList.add("completed"); 
+        li.classList.add("completed");
     } else {
-        li.classList.remove("completed"); 
+        li.classList.remove("completed");
     }
 
     displayArray();
@@ -398,14 +309,14 @@ function saveDataToLocal() {
 function clearInputFields() {
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
-    document.getElementById("dueDate").value = ""; 
+    document.getElementById("dueDate").value = "";
 }
 
-document.getElementById("title").addEventListener("keydown", function(event) {
+document.getElementById("title").addEventListener("keydown", function (event) {
     handleEnterKey(event);
 });
 
-document.getElementById("description").addEventListener("keydown", function(event) {
+document.getElementById("description").addEventListener("keydown", function (event) {
     handleEnterKey(event);
 });
 
@@ -416,7 +327,7 @@ function handleEnterKey(event) {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     const storedData = localStorage.getItem('myData');
     if (storedData) {
         array1 = JSON.parse(storedData);

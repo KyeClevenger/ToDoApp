@@ -52,11 +52,14 @@
     </div>
     <div id="myModal" class="modal">
         <div id="modalContent" class="modal-content"></div>
-        <ul class="p-12" id="toDo" ondrop="drop(event)" ondragover="allowDrop(event)"></ul>
     </div>
     <div class="footer">
         <div class="addTask justify-center items-center flex text-center w-20 h-20 shadow-lg shadow-indigo-500/40">
-            <button class="addTodoButton text-7xl" onclick="openToDoForm(new Date())">+</button>
+            <button class="addTodoButton" onclick="openToDoForm(new Date())"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-lg"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+            </svg></button>
         </div>
     </div>
 </body>
