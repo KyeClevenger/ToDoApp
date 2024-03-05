@@ -46,6 +46,7 @@ newListForm.addEventListener('submit', e => {
     newListInput.value = null
     lists.push(list)
     saveAndRender()
+    newListInput.focus();
 })
 
 function createList(name) {
