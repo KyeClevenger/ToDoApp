@@ -38,6 +38,7 @@
 
 .taskList,
 .todoList {
+    position: relative;
     padding: 20px;
     margin: 20px;
     height: 80vh; 
@@ -52,7 +53,7 @@
 .listName {
     width: 90%;
     padding: 10px;
-    margin: 10px;
+    margin: 20px;
     border: 3px solid black;
     border-radius: 20px;
     background-color: rgb(255, 255, 255);
@@ -61,8 +62,8 @@
 }
 
 .listName.activeList {
-    border: 3px dashed rgb(104, 160, 255);
-    box-shadow: 2px 2px rgb(104, 160, 255);
+    border: 3px double rgb(112, 164, 255);
+    box-shadow: 2px 2px rgb(112, 164, 255);
 }
 
 .form {

@@ -71,9 +71,9 @@ function render() {
         listDisplayContainer.style.display = 'none';
     } else {
         listDisplayContainer.style.display = '';
-        listTitleElement.innerText = selectedList.name;
+        listTitleElement.innerHTML = selectedList.name;
         renderTaskCount(selectedList);
-        renderTasks(selectedList); // Uncomment this line
+        renderTasks(selectedList); 
     }
 }
 function renderTasks(selectedList) {
@@ -85,7 +85,7 @@ function renderTasks(selectedList) {
         
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.id = task.id; // Set a unique identifier for the checkbox
+        checkbox.id = task.id; 
         checkbox.checked = task.complete;
         checkbox.addEventListener('change', () => {
             toggleTaskComplete(selectedList, task.id);
@@ -107,7 +107,7 @@ function renderTaskCount(selectedList) {
     const incompleteTaskCount = selectedList.tasks.filter( task => !task.complete).length;
     // compact if else
     const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
-    listCountElement.innerText = `${incompleteTaskCount} ${taskString} remaining`
+    listCountElement.innerHTML = `${incompleteTaskCount} ${taskString} remaining`
 }
 
 function renderLists() {
@@ -115,7 +115,7 @@ function renderLists() {
     const listElement = document.createElement('li');
     listElement.dataset.listId = list.id;
     listElement.classList.add('listName');
-    listElement.innerText = list.name;
+    listElement.innerHTML = list.name;
     if (list.id === selectedListId) {
         listElement.classList.add('activeList');
     }
