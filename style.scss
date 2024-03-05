@@ -3,16 +3,114 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; 
     font-family: "Poppins", sans-serif;
 }
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 10vh; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(173, 173, 173);
+    border-top: 5px solid black;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    z-index: 2;
+}
+
+.addTask {
+    background-color: rgb(59, 147, 255);
+    border: 4px solid black;
+    cursor: pointer;
+    position: relative;
+    bottom: 50%;
+    border-radius: 50%;
+}
+
+.toDoAppLogo {
+    font-size: 2rem;
+    padding: 20px;
+}
+
+.taskList,
+.todoList {
+    padding: 20px;
+    margin: 20px;
+    height: 80vh; 
+    width: 30%;
+    background-color: rgb(255, 165, 109);
+    border: 3px solid black;
+    box-shadow: 2px 2px black;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.listName {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 2px 2px black;
+}
+
+.listName.activeList {
+    border: 3px dashed rgb(104, 160, 255);
+    box-shadow: 2px 2px rgb(104, 160, 255);
+}
+
+.form {
+    width: 100%; 
+    flex-wrap: wrap;
+}
+
+.addList {
+    border-radius: 20px; 
+    border-bottom: 2px solid black;
+    box-shadow: 2px 2px black;
+    width: 100%;
+    height: 30px;
+}
+
+.btns {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 3px solid black;
+    box-shadow: 2px 2px black;
+    background-color: rgb(255, 255, 255);
+    margin: 15px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// calender
 .wrapper {
     position: relative;
     width: 400px;
     background: #fff;
     border-radius: 10px;
     border: 3px solid black;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 2px 2px black;
 }
 
 .wrapper header {
@@ -114,60 +212,4 @@ header .current-date {
 
 #jumpToToday{
     color: #ff9736;
-}
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    height: 10%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(173, 173, 173);
-    border-top: 3px solid black;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    z-index: 2;
-}
-
-.addTask {
-    background-color: rgb(59, 147, 255);
-    border: 3px solid rgb(0, 0, 0);
-    cursor: pointer;
-    box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.12);
-    position: relative;
-    bottom: 50%;
-    border-radius: 50%;
-}
-
-
-.toDoAppLogo{
-    font-size: 2rem;
-    padding: 20px;
-}
-
-.modal{
-    display: none;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    height: 80%;
-    width: 50%;
-    border-radius: 10px;
-    border: 3px solid black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 14%;
-    left: 50%;
-}
-
-.close {
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
 }
