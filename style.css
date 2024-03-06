@@ -23,7 +23,7 @@
 
 .addTask {
   background-color: rgb(59, 147, 255);
-  border: 4px solid black;
+  border: 5px solid black;
   cursor: pointer;
   position: relative;
   bottom: 50%;
@@ -61,7 +61,7 @@
 }
 
 .listName.activeList {
-  border: 3px double rgb(112, 164, 255);
+  border: 3px double rgb(104, 160, 255);
   box-shadow: 2px 2px rgb(112, 164, 255);
 }
 
@@ -91,9 +91,14 @@
   display: flex;
 }
 
+.underline-offset-8 {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
 .wrapper {
   position: relative;
-  width: 400px;
+  width: 100%;
   background: #fff;
   border-radius: 10px;
   border: 3px solid black;
@@ -101,6 +106,7 @@
 }
 
 .wrapper header {
+  background-color: #878787;
   height: 75px;
   display: flex;
   align-items: center;
@@ -110,8 +116,8 @@
 
 header .icons {
   display: flex;
-  padding: 10px;
-  flex-grow: 1;
+  padding: 20px;
+  width: 25%;
   align-items: center;
   justify-content: center;
 }
@@ -119,9 +125,8 @@ header .icons {
 header .icons span {
   height: 38px;
   width: 38px;
-  margin: 0 1px;
   cursor: pointer;
-  color: #878787;
+  color: #444444;
   text-align: center;
   line-height: 38px;
   font-size: 1.9rem;
@@ -148,7 +153,8 @@ header .current-date {
 
 .calendar {
   height: 400px;
-  padding: 15px;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .calendar ul {
@@ -169,15 +175,24 @@ header .current-date {
 }
 
 .calendar .weeks li {
+  background-color: #e2e2e2;
+  border: 1px solid rgb(84, 84, 84);
+  border-bottom: none;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
   font-weight: 500;
   cursor: default;
+  display: flex;
+  text-align: center;
 }
 
 .calendar .days li {
+  border: 1px solid rgb(84, 84, 84);
   z-index: 1;
+  padding: 15px;
   cursor: pointer;
   position: relative;
-  margin-top: 30px;
 }
 
 .days li.inactive {
@@ -213,5 +228,52 @@ header .current-date {
 }
 
 #jumpToToday {
-  color: #ff9736;
+  color: #ffffff;
+  height: 50px;
+  width: 200px;
+  background-color: #ff9736;
+  border-radius: 30px;
+  margin: 1;
+  border: 3px solid black;
+}
+
+@media only screen and (max-width: 600px) {
+  /* Adjust the styles for screens with a maximum width of 600px (typical for mobile devices) */
+  .wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+  header {
+    padding: 10px;
+  }
+  header .icons {
+    padding: 10px;
+  }
+  header .current-date {
+    font-size: 1rem;
+  }
+  .calendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+  }
+  .calendar .weeks li {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .calendar .days li {
+    padding: 10px;
+  }
+  .days li::before {
+    height: 30px;
+    width: 30px;
+  }
+  #jumpToToday {
+    width: 150px;
+  }
+  .taskList,
+  .todoList {
+    width: 90%;
+  }
 }/*# sourceMappingURL=style.css.map */
