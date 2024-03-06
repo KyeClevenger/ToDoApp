@@ -50,18 +50,22 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-    
+
     function renderTasks(selectedList) {
         tasksContainer.innerHTML = '';
     
         selectedList.tasks.forEach((task) => {
             const taskElement = document.createElement('div');
-            taskElement.classList.add('task');
+            taskElement.classList.add('listName');
+    
+            const checkboxContainer = document.createElement('div');
+            checkboxContainer.classList.add('checkbox-container');
     
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.id = task.id;
             checkbox.checked = task.complete;
+            checkbox.classList.add('box');
             checkbox.addEventListener('change', () => {
                 toggleTaskComplete(selectedList, task.id);
                 saveAndRender();
@@ -69,13 +73,17 @@ document.addEventListener('DOMContentLoaded', function () {
     
             const label = document.createElement('label');
             label.htmlFor = task.id;
+            label.classList.add('label');
             label.textContent = task.name;
     
-            taskElement.appendChild(checkbox);
-            taskElement.appendChild(label);
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(label);
+            taskElement.appendChild(checkboxContainer);
             tasksContainer.appendChild(taskElement);
         });
     }
+    
+    
 
     function renderTaskCount(selectedList) {
         const incompleteTaskCount = selectedList.tasks.filter(task => !task.complete).length;

@@ -7,29 +7,29 @@
     font-family: "Poppins", sans-serif;
 }
 
-.footer {
-    position: fixed;
-    bottom: 0;
-    height: 10vh; 
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(173, 173, 173);
-    border-top: 5px solid black;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    z-index: 2;
-}
+// .footer {
+//     position: fixed;
+//     bottom: 0;
+//     height: 10vh; 
+//     width: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     background-color: rgb(173, 173, 173);
+//     border-top: 5px solid black;
+//     color: rgb(255, 255, 255);
+//     text-align: center;
+//     z-index: 2;
+// }
 
-.addTask {
-    background-color: rgb(59, 147, 255);
-    border: 5px solid black;
-    cursor: pointer;
-    position: relative;
-    bottom: 50%;
-    border-radius: 50%;
-}
+// .addTask {
+//     background-color: rgb(59, 147, 255);
+//     border: 5px solid black;
+//     cursor: pointer;
+//     position: relative;
+//     bottom: 50%;
+//     border-radius: 50%;
+// }
 
 .toDoAppLogo {
     font-size: 2rem;
@@ -41,8 +41,8 @@
     position: relative;
     padding: 20px;
     margin: 20px;
-    height: 80vh; 
-    width: 30%;
+    height: 0%; 
+    width: 40%;
     background-color: rgb(255, 165, 109);
     border: 3px solid black;
     box-shadow: 2px 2px black;
@@ -95,6 +95,39 @@
 .underline-offset-8 {
     text-decoration: underline;
     text-underline-offset: 8px;
+}
+
+.task{
+    padding: 5px;
+}
+
+.box {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%; 
+    border: 2px solid #555; 
+    background-color: #fff; 
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.box:checked {
+    background-color: #4CAF50; 
+    border-color: #000000; 
+}
+
+.checkbox-container {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 8px; 
+}
+
+.label {
+    margin-left: 8px; 
 }
 
 
@@ -246,8 +279,7 @@ header .current-date {
 
 
 
-@media only screen and (max-width: 600px) {
-    /* Adjust the styles for screens with a maximum width of 600px (typical for mobile devices) */
+@media only screen and (max-width: 770px) {
     .wrapper {
         width: 90%;
         margin: 0 auto;
