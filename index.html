@@ -76,8 +76,19 @@
                 <h1 class="text-5xl p-1 m-1  underline-offset-8" data-list-title></h1>
                 <h4 class="text-2xl p-2 m-1" data-list-count></h4>
             </div>
-            <div class="todoBody">
+            <div class="todobody">
                 <div class="tasks" data-tasks></div>
+                <div class="new-task-creator">
+                    <form action="" data-new-task-form>
+                        <input type="text" data-new-task-input class="new task" placeholder="new task name"
+                            aria-label="new task name" />
+                        <button class="btn create" aria-label="create new task">+</button>
+                    </form>
+                </div>
+                <div class="delete-stuff">
+                    <button class="btn delete" data-clear-complete-tasks-button>Clear completed tasks</button>
+                    <button class="btn delete" data-delete-list-button>Delete list</button>
+                </div>
             </div>
         </div>
     </div>

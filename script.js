@@ -7,12 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const listTitleElement = document.querySelector('[data-list-title]');
     const listCountElement = document.querySelector('[data-list-count]');
     const tasksContainer = document.querySelector('[data-tasks]');
+    const newTaskForm = document.querySelector('[data-new-task-form]');
+    const inputTaskName = document.querySelector('[data-new-task-input]');
+    const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]');
     const footer = document.querySelector('.footer');
 
     const LOCAL_STORAGE_LIST_KEY = 'task.lists';
+    const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
     let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
-    let selectedListId = localStorage.getItem('task.selectedListId');
-
+    let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
 
     function areListsPresent() {
         return lists.length > 0;
@@ -32,12 +35,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    newTaskForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const taskName = inputTaskName.value.trim();
+        
+        if (taskName !== '') {
+            const selectedList = lists.find(list => list.id === selectedListId);
+            
+            if (selectedList) {
+                const newTask = { id: Date.now().toString(), name: taskName, complete: false };
+                selectedList.tasks.push(newTask);
+                saveAndRender();
+                inputTaskName.value = '';
+            }
+        }
+    });
+    
     function renderTasks(selectedList) {
         tasksContainer.innerHTML = '';
+    
         selectedList.tasks.forEach((task) => {
             const taskElement = document.createElement('div');
             taskElement.classList.add('task');
-
+    
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.id = task.id;
@@ -46,11 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 toggleTaskComplete(selectedList, task.id);
                 saveAndRender();
             });
-
+    
             const label = document.createElement('label');
             label.htmlFor = task.id;
             label.textContent = task.name;
-
+    
             taskElement.appendChild(checkbox);
             taskElement.appendChild(label);
             tasksContainer.appendChild(taskElement);
@@ -76,19 +96,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function save() {
         localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
-        localStorage.setItem('task.selectedListId', selectedListId);
+        localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId);
     }
 
     listsContainer.addEventListener('click', (e) => {
-    if (e.target.tagName.toLowerCase() === 'li') {
-        selectedListId = e.target.dataset.listId;
-        saveAndRender();
-    } else if (!listsContainer.contains(e.target)) {
-        selectedListId = null;
-        saveAndRender();
-    }
-});
-
+        if (e.target.tagName.toLowerCase() === 'li') {
+            selectedListId = e.target.dataset.listId;
+            saveAndRender();
+        } else if (!listsContainer.contains(e.target)) {
+            selectedListId = null;
+            saveAndRender();
+        }
+    });
 
     deleteListButton.addEventListener('click', (e) => {
         lists = lists.filter(list => list.id !== selectedListId);
@@ -103,6 +122,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const list = createList(listName);
         newListInput.value = '';
         lists.push(list);
+        saveAndRender();
+    });
+
+    const deleteListButtonOnRight = document.querySelector('.delete-stuff [data-delete-list-button]');
+    deleteListButtonOnRight.addEventListener('click', () => {
+    if (confirm('Are you sure you want to delete this list?')) {
+        lists = lists.filter(list => list.id !== selectedListId);
+        selectedListId = null;
+        saveAndRender();
+    }
+});
+
+    clearCompleteTasksButton.addEventListener('click', () => {
+        const selectedList = lists.find(list => list.id === selectedListId);
+        selectedList.tasks = selectedList.tasks.filter(task => !task.complete);
         saveAndRender();
     });
 
@@ -125,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (selectedList) {
                 listTitleElement.innerText = selectedList.name;
                 renderTaskCount(selectedList);
+                clearElement(tasksContainer);
                 renderTasks(selectedList);
             }
         } else {

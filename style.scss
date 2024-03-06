@@ -129,7 +129,7 @@
 header .icons {
     display: flex;
     padding: 20px;
-    width: 25%;
+    width: 28%;
     align-items: center;
     justify-content: center;
 }
@@ -259,6 +259,7 @@ header .current-date {
 
     header .icons {
         padding: 10px;
+        flex-grow: 1;
     }
 
     header .current-date {
