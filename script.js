@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]');
     const footer = document.querySelector('.footer');
 
+    // local storage
     const LOCAL_STORAGE_LIST_KEY = 'task.lists';
     const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
     let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // make tasks show up
     function renderTasks(selectedList) {
         tasksContainer.innerHTML = '';
     
@@ -82,8 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
             tasksContainer.appendChild(taskElement);
         });
     }
-    
-    
 
     function renderTaskCount(selectedList) {
         const incompleteTaskCount = selectedList.tasks.filter(task => !task.complete).length;
@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // delete list
     deleteListButton.addEventListener('click', (e) => {
         lists = lists.filter(list => list.id !== selectedListId);
         selectedListId = null;
@@ -133,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         saveAndRender();
     });
 
+    // delete list box
     const deleteListButtonOnRight = document.querySelector('.delete-stuff [data-delete-list-button]');
     deleteListButtonOnRight.addEventListener('click', () => {
     if (confirm('Are you sure you want to delete this list?')) {
@@ -152,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return { id: Date.now().toString(), name: name, tasks: [] };
     }
 
+    // checkbox toggle
     function toggleTaskComplete(selectedList, taskId) {
         const task = selectedList.tasks.find(task => task.id === taskId);
         if (task) {
